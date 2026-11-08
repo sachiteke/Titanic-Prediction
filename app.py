@@ -112,8 +112,6 @@ if df[TARGET].isna().any():
 y_true = df[TARGET].astype(int)
 X = engineer_features(df.drop(columns=[TARGET]))
 
-with st.expander(f"Preview of test data ({df.shape[0]} rows x {df.shape[1]} columns)"):
-    st.dataframe(df.head(20), use_container_width=True)
 
 # ---------- SELECT MODEL ----------
 pipe = load_model(model_name)
