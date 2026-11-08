@@ -60,10 +60,10 @@ streamlit run app.py
 ```
 
 ## Streamlit app features
-- CSV upload of test data (or one-click use of the bundled `test_data.csv`); validates required columns
+- CSV upload of test data
 - Model selection dropdown (5 models)
 - Accuracy, AUC, Precision, Recall, F1, MCC for the selected model
 - Confusion matrix, ROC curve and classification report
-- Side-by-side comparison of all five models on the uploaded data, plus downloadable predictions
+- Side-by-side comparison of all five models on the uploaded data
 
-**Live app:** `<PASTE YOUR STREAMLIT COMMUNITY CLOUD URL HERE>`
+**Live app:** `https://titanic-prediction-ega8dcmbgdp8fugw9ne2ee.streamlit.app/`
