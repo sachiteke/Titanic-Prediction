@@ -32,25 +32,10 @@ Hyper-parameters: LogisticRegression(max_iter=1000); DecisionTree(max_depth=5, m
 ### Observations
 | ML Model Name | Observation about model performance |
 |---|---|
-| Logistic Regression | Best overall: highest accuracy (0.844), AUC (0.873) and MCC (0.666). The survival signal (sex, class, title) is close to linear after one-hot encoding, so a simple, well-regularised linear model fits it well and generalises cleanly. |
-| Decision Tree | Weakest recall (0.623) and lowest MCC (0.506). Even with depth capped at 5 it fits quirks of the small training set and misses many true survivors. Easy to interpret but less stable. |
+| Logistic Regression | Best overall: highest accuracy (0.844), AUC (0.873) and MCC (0.666). The survival ‘signal’ (sex, class, title) is close to linear after one-hot encoding, so a simple linear model fits it well and generalises cleanly. |
+| Decision Tree | Weakest recall (0.623) and lowest MCC (0.506). Even with depth of 5 it fits variances of the small training set and misses many true survivors. Easy to interpret but less stable. |
 | KNN | Middling (accuracy 0.777, MCC 0.526). Distances over mixed one-hot and scaled numeric features are noisy and the result depends on k, so it trails the linear and kernel models. |
 | Naive Bayes | Highest recall (0.855) but lowest precision (0.648) and lowest AUC (0.777). The independence assumption is violated by correlated features (Pclass/Fare/Deck, SibSp/Parch/FamilySize), so it over-predicts survival. Useful if missing a survivor is costlier than a false alarm. |
-| Support Vector Machine | Very close second (accuracy 0.838, MCC 0.655). The RBF kernel captures some non-linear interactions, but on this small, mostly-linear problem it does not beat logistic regression. |
-| **Overall winner for your dataset?** | **Logistic Regression** - best Accuracy, AUC, Precision, F1 and MCC, with SVM a close runner-up. Only Naive Bayes wins a single metric (Recall). With a 179-row test set, differences of ~1 point between LR and SVM are within noise. |
+| Support Vector Machine | Accuracy 0.838, MCC 0.655). The RBF kernel captures some non-linear interactions, but on this problem it does not beat logistic regression. |
+| **Overall winner for your dataset?** | **Logistic Regression** - best Accuracy, AUC, Precision, F1 and MCC, with and SVM is a runner-up. Only Naive Bayes wins a single metric (Recall). With a 179-row test set, differences of ~1 point between LR and SVM are within noise. |
 
-## Running locally
-```bash
-pip install -r requirements.txt
-python train_models.py        # regenerates model/*.joblib, test_data.csv, metrics
-streamlit run app.py
-```
-
-## Streamlit app features
-- CSV upload of test data
-- Model selection dropdown (5 models)
-- Accuracy, AUC, Precision, Recall, F1, MCC for the selected model
-- Confusion matrix, ROC curve and classification report
-- Side-by-side comparison of all five models on the uploaded data
-
-**Live app:** `https://titanic-prediction-ega8dcmbgdp8fugw9ne2ee.streamlit.app/`
