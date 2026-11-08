@@ -1,9 +1,9 @@
 # TITANIC SURVIVAL PREDICTION
 
-## A. PROBLEM STATEMENT USED
+## A. The Problem Statement
 Predict whether a passenger survived the Titanic disaster (`Survived`: 1 = survived, 0 = did not survive) from passenger details- Class, Sex, Age, Family Size, Fare, Cabin and Embarking Port. This is a **Binary Classification** problem. Five classifiers (Logistic Regression, Decision Tree, KNN, Gaussian Naive Bayes, SVM) are trained on the data Titanic-Dataset.csv, compared on six metrics, and deployed to Streamlit app that evaluates the saved models on  test_data.csv .
 
-## B. DATASET DESCRIPTION
+## B. Dataset Description
 - **Source:** Titanic dataset (Kaggle - "Titanic Dataset: Titanic Survival Prediction Dataset").
 - **Instances:** 891 passengers.
 - **Raw columns:** PassengerId, Survived (target), Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked.
@@ -13,23 +13,10 @@ Predict whether a passenger survived the Titanic disaster (`Survived`: 1 = survi
 - **Split:** 80/20 --> 712 train / 179 test. The test set is in `test_data.csv`.
 - **Preprocessing (inside each saved pipeline):** feature engineering -> imputation -> StandardScaler (numeric) / One-Hot (categorical) -> classifier.
 
-## c. GitHub repository link
+## C. GitHub Repository Link
 `https://github.com/sachiteke/Titanic-Prediction`
 
-
-Repository layout:
-```
-├── app.py                 # Streamlit app
-├── features.py            # feature engineering shared by training and app
-├── train_models.py        # trains, evaluates and saves all 5 models
-├── requirements.txt
-├── README.md
-├── Titanic-Dataset.csv    # full dataset
-├── test_data.csv          # held-out test data (upload this in the app)
-└── model/                 # saved pipelines (*.joblib) + metrics.csv
-```
-
-## d. Models used
+## D. Models Used
 
 ### Comparison table (test set, 179 passengers)
 | ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
