@@ -1,13 +1,13 @@
 # TITANIC SURVIVAL PREDICTION
 
-# A. PROBLEM STATEMENT USED
+## A. PROBLEM STATEMENT USED
 Predict whether a passenger survived the Titanic disaster (`Survived`: 1 = survived, 0 = did not survive) from passenger details- Class, Sex, Age, Family Size, Fare, Cabin and Embarking Port. This is a **Binary Classification** problem. Five classifiers (Logistic Regression, Decision Tree, KNN, Gaussian Naive Bayes, SVM) are trained on the data Titanic-Dataset.csv, compared on six metrics, and deployed to Streamlit app that evaluates the saved models on  test_data.csv .
 
-# B. DATASET DESCRIPTION
+## B. DATASET DESCRIPTION
 - **Source:** Titanic dataset (Kaggle - "Titanic Dataset: Titanic Survival Prediction Dataset").
 - **Instances:** 891 passengers.
 - **Raw columns:** PassengerId, Survived (target), Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked.
-- **Engineered model features (13):**  Pclass, Age, SibSp, Parch, Fare, Sex, Embarked + derived `Title` (from Name), `FamilySize`, `IsAlone`, `HasCabin`, `Deck` (from Cabin), `FarePerPerson`.
+- **Engineered model features (13):**  `Pclass`, `Age`, `SibSp`, `Parch`, `Fare`, `Sex`, `Embarked` + derived `Title` (from Name), `FamilySize`, `IsAlone`, `HasCabin`, `Deck` (from Cabin), `FarePerPerson`.
 - **Dropped:** PassengerId, Name, Ticket, Cabin (after feature extraction).
 - **Class balance:** ~38% survived / ~62% did not.
 - **Split:** 80/20 --> 712 train / 179 test. The test set is in `test_data.csv`.
