@@ -14,7 +14,7 @@ from sklearn.metrics import (accuracy_score, classification_report,
                              precision_score, recall_score, roc_auc_score,
                              roc_curve)
 
-from features import RAW_COLUMNS, TARGET  # noqa: F401  (features must be importable for unpickling)
+from features import RAW_COLUMNS, TARGET
 
 st.set_page_config(page_title="Titanic Survival - Model Lab", page_icon="🚢",
                    layout="wide")
