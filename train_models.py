@@ -1,8 +1,3 @@
-"""Train 5 classifiers on the Titanic dataset, evaluate, and save artefacts.
-
-Run:  python train_models.py
-Outputs: model/*.joblib, test_data.csv, model/metrics.csv
-"""
 import os
 import joblib
 import numpy as np
@@ -10,8 +5,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (accuracy_score, roc_auc_score, precision_score,
-                             recall_score, f1_score, matthews_corrcoef)
+from sklearn.metrics import (accuracy_score, roc_auc_score, precision_score, recall_score, f1_score, matthews_corrcoef)
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
@@ -72,8 +66,6 @@ def build_pipeline(clf):
                                                sparse_output=False))]),
          CATEGORICAL_FEATURES),
     ])
-    # Feature engineering is done BEFORE the pipeline (see engineer_features),
-    # so the saved models only reference scikit-learn classes.
     return Pipeline([("pre", pre), ("clf", clf)])
 
 
@@ -92,7 +84,7 @@ def main():
     df = pd.read_csv(DATA_PATH)
     train_df, test_df = train_test_split(df, test_size=0.2, stratify=df[TARGET],
                                          random_state=SEED)
-    # Raw-format test data (the Streamlit app applies the same engineer_features())
+                                         
     test_df.to_csv("test_data.csv", index=False)
 
     X_train, y_train = engineer_features(train_df.drop(columns=[TARGET])), train_df[TARGET]
