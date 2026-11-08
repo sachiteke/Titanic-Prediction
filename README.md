@@ -11,7 +11,7 @@ Predict whether a passenger survived the Titanic disaster (`Survived`: 1 = survi
 - **Dropped:** PassengerId, Name, Ticket, Cabin (after feature extraction).
 - **Class balance:** ~38% survived / ~62% did not.
 - **Split:** 80/20 --> 712 train / 179 test. The test set is in `test_data.csv`.
-- **Preprocessing (inside each saved pipeline):** feature engineering -> imputation -> StandardScaler (numeric) / One-Hot (categorical) -> classifier. Because preprocessing is part of the saved pipeline, the app never retrains anything.
+- **Preprocessing (inside each saved pipeline):** feature engineering -> imputation -> StandardScaler (numeric) / One-Hot (categorical) -> classifier.
 
 ## c. GitHub repository link
 `https://github.com/sachiteke/Titanic-Prediction`
