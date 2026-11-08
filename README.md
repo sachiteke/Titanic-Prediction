@@ -14,7 +14,8 @@ Predict whether a passenger survived the Titanic disaster (`Survived`: 1 = survi
 - **Preprocessing (inside each saved pipeline):** feature engineering -> imputation -> StandardScaler (numeric) / One-Hot (categorical) -> classifier. Because preprocessing is part of the saved pipeline, the app never retrains anything.
 
 ## c. GitHub repository link
-`<PASTE YOUR GITHUB REPO URL HERE>`
+`https://github.com/sachiteke/Titanic-Prediction`
+
 
 Repository layout:
 ```
