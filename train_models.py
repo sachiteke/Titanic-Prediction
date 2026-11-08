@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
@@ -72,8 +72,9 @@ def build_pipeline(clf):
                                                sparse_output=False))]),
          CATEGORICAL_FEATURES),
     ])
-    return Pipeline([("fe", FunctionTransformer(engineer_features)),
-                     ("pre", pre), ("clf", clf)])
+    # Feature engineering is done BEFORE the pipeline (see engineer_features),
+    # so the saved models only reference scikit-learn classes.
+    return Pipeline([("pre", pre), ("clf", clf)])
 
 
 MODELS = {
@@ -91,11 +92,11 @@ def main():
     df = pd.read_csv(DATA_PATH)
     train_df, test_df = train_test_split(df, test_size=0.2, stratify=df[TARGET],
                                          random_state=SEED)
-    # Raw-format test data (the Streamlit app applies the same feature engineering)
+    # Raw-format test data (the Streamlit app applies the same engineer_features())
     test_df.to_csv("test_data.csv", index=False)
 
-    X_train, y_train = train_df.drop(columns=[TARGET]), train_df[TARGET]
-    X_test, y_test = test_df.drop(columns=[TARGET]), test_df[TARGET]
+    X_train, y_train = engineer_features(train_df.drop(columns=[TARGET])), train_df[TARGET]
+    X_test, y_test = engineer_features(test_df.drop(columns=[TARGET])), test_df[TARGET]
 
     rows = []
     for name, clf in MODELS.items():
