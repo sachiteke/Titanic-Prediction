@@ -14,7 +14,11 @@ from sklearn.metrics import (accuracy_score, classification_report,
                              precision_score, recall_score, roc_auc_score,
                              roc_curve)
 
-from features import RAW_COLUMNS, TARGET
+
+TARGET = "Survived"
+
+RAW_COLUMNS = ["PassengerId", "Survived", "Pclass", "Name", "Sex", "Age", "SibSp",
+               "Parch", "Ticket", "Fare", "Cabin", "Embarked"]
 
 st.set_page_config(page_title="Titanic Survival - Model Lab", page_icon="🚢",
                    layout="wide")
