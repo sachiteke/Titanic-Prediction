@@ -1,7 +1,3 @@
-"""Streamlit app: Titanic survival prediction - evaluate 5 saved classifiers on an uploaded test CSV.
-
-Models are loaded from model/*.joblib and are NOT retrained on the uploaded data.
-"""
 import os
 import joblib
 import matplotlib.pyplot as plt
@@ -84,30 +80,25 @@ def compute_metrics(y_true, y_pred, y_proba) -> dict:
     }
 
 
-# ---------------------------------------------------------------- sidebar
+# ---------- SIDEBAR -----------
 st.sidebar.title(" Titanic Model Lab")
 st.sidebar.caption("ML Assignment 2 - M.Tech (AIML), BITS Pilani")
 
 uploaded = st.sidebar.file_uploader("1. Upload test CSV", type=["csv"],
                                     help="Must contain the raw Titanic columns including 'Survived'.")
-use_sample = st.sidebar.checkbox("Use bundled test_data.csv instead", value=uploaded is None)
 
 model_name = st.sidebar.selectbox("2. Choose a model", list(MODEL_FILES.keys()))
 st.sidebar.markdown("---")
-st.sidebar.info("Models are pre-trained and loaded from disk. "
-                "Your uploaded file is used **only for evaluation**.")
 
-# ---------------------------------------------------------------- main
+# ---------- MAIN ----------
 st.title("Titanic Survival Prediction - Classifier Evaluation")
-st.write("Upload a held-out test file, pick a model, and inspect how it performs. "
+st.write("Upload a test file, pick a model, and inspect how it performs. "
          "Target: **Survived** (1 = survived, 0 = did not survive).")
 
 if uploaded is not None:
     df = pd.read_csv(uploaded)
-elif use_sample:
-    df = pd.read_csv(os.path.join(BASE_DIR, "test_data.csv"))
 else:
-    st.warning("Upload a CSV or tick the checkbox to use the bundled test data.")
+    st.warning("Upload a CSV to test.")
     st.stop()
 
 missing = [c for c in REQUIRED_COLS if c not in df.columns]
@@ -124,7 +115,7 @@ X = engineer_features(df.drop(columns=[TARGET]))
 with st.expander(f"Preview of test data ({df.shape[0]} rows x {df.shape[1]} columns)"):
     st.dataframe(df.head(20), use_container_width=True)
 
-# ---------------------------------------------------------------- selected model
+# ---------- SELECT MODEL ----------
 pipe = load_model(model_name)
 y_pred = pipe.predict(X)
 y_proba = pipe.predict_proba(X)[:, 1]
@@ -161,7 +152,7 @@ report = classification_report(y_true, y_pred, target_names=["Died", "Survived"]
                                output_dict=True, zero_division=0)
 st.dataframe(pd.DataFrame(report).T.round(3), use_container_width=True)
 
-# ---------------------------------------------------------------- all-model comparison
+# ---------- MODEL COMPARISON ----------
 st.subheader("Comparison of all five models on this test data")
 rows = []
 for name in MODEL_FILES:
@@ -174,11 +165,3 @@ st.dataframe(cmp_df.style.format("{:.4f}").highlight_max(axis=0, color="#c6efce"
 best = cmp_df["MCC"].idxmax()
 st.success(f"Best model on this data by MCC: **{best}** (MCC = {cmp_df.loc[best, 'MCC']:.4f})")
 st.bar_chart(cmp_df[["Accuracy", "F1", "MCC"]])
-
-# ---------------------------------------------------------------- predictions download
-out = df.copy()
-out["Predicted_Survived"] = y_pred
-out["Survival_Probability"] = np.round(y_proba, 4)
-st.download_button("Download predictions (CSV)", out.to_csv(index=False).encode(),
-                   file_name=f"predictions_{model_name.lower().replace(' ', '_')}.csv",
-                   mime="text/csv")
