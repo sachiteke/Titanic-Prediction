@@ -54,7 +54,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     return d[ALL_FEATURES]
 
 
-st.set_page_config(page_title="Titanic Survival - Model Lab", page_icon="🚢",
+st.set_page_config(page_title="Titanic Survival - Model Lab",
                    layout="wide")
 
 MODEL_FILES = {
@@ -85,7 +85,7 @@ def compute_metrics(y_true, y_pred, y_proba) -> dict:
 
 
 # ---------------------------------------------------------------- sidebar
-st.sidebar.title("🚢 Titanic Model Lab")
+st.sidebar.title(" Titanic Model Lab")
 st.sidebar.caption("ML Assignment 2 - M.Tech (AIML), BITS Pilani")
 
 uploaded = st.sidebar.file_uploader("1. Upload test CSV", type=["csv"],
